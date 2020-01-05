@@ -1,0 +1,37 @@
+---
+# Should the lists act as a whitelist, or a blacklist?
+whitelistMode: true
+# minecraft-namespace key names
+enchants:
+  - aqua_affinity
+  - bane_of_arthropods
+  - depth_strider
+  - frost_walker
+  - loyalty
+  - respiration
+  - riptide
+  - silk_touch
+  - smite
+  - sweeping
+  - vanishing_curse
+  - binding_curse
+  - quick_charge
+  - piercing
+  - mending
+  - lure
+  - luck_of_the_sea
+  - looting
+  - fortune
+  - knockback
+  - punch
+  - unbreaking
+  - efficiency
+  - channeling
+  - impaling
+# PotionType enum names - https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionType.html
+potions:
+  - NIGHT_VISION
+  - JUMP
+  - WATER_BREATHING
+  - SLOW_FALLING
+  - LUCK

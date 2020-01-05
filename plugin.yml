@@ -1,0 +1,9 @@
+name: MaimedMagic
+description: Rebalance Minecraft magic
+version: ${version}
+main: net.snofox.minecraft.maimedmagic.MaimedMagic
+author: SnoFox
+website: https://www.snofox.net/
+api-version: 1.13
+depend: ["SnoLib"]
+softdepend: []
