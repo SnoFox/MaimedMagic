@@ -3,12 +3,10 @@ package net.snofox.minecraft.maimedmagic;
 import net.snofox.minecraft.snolib.RandomUtil;
 import net.snofox.minecraft.snolib.language.ItemNames;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.ClickType;
@@ -44,22 +42,11 @@ public class InventoryListener implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onPrepareItemEnchant(PrepareItemEnchantEvent ev) {
-        // TODO: Re-roll instead of offering nothing
-        final EnchantmentOffer[] offers = ev.getOffers();
-        for(int i = 0; i < offers.length; ++i) {
-            final EnchantmentOffer offer = offers[i];
-            if(offer != null && !module.isAllowed(offer.getEnchantment())) ev.getOffers()[i] = null;
-        }
-    }
-
-    @EventHandler(ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent ev) {
         // Examine Brewing Stand inventories, since BrewEvent fires before the result appears for cleaning
         if(!(ev.getClickedInventory() instanceof BrewerInventory)) return;
         final ItemStack currentItem = ev.getCurrentItem();
         if(handleItemStack(currentItem)) {
-            ev.setCurrentItem(currentItem);
             if(ev.getWhoClicked() instanceof Player) {
                 final Player p = (Player) ev.getWhoClicked();
                 module.notifyPlayer(p, "The magic in the "
@@ -76,27 +63,19 @@ public class InventoryListener implements Listener {
         handleInventory(ev.getView().getTopInventory());
     }
 
-    private boolean handleInventory(final Inventory inventory) {
-        boolean dirty = false;
+    private void handleInventory(final Inventory inventory) {
         final ItemStack[] storageContents = inventory.getStorageContents();
         for(int i = 0; i < storageContents.length; ++i) {
-            if(handleItemStack(storageContents[i])) {
-                inventory.getStorageContents()[i] = storageContents[i];
-                dirty = true;
-            }
+            handleItemStack(storageContents[i]);
         }
-        return dirty;
     }
 
     private boolean handleItemStack(final ItemStack item) {
-        return handleEnchants(item) || handlePotions(item);
+        return handleEnchants(item) | handlePotions(item);
     }
 
     private boolean handleItem(final Item item) {
-        final ItemStack itemStack = item.getItemStack();
-        final boolean dirty = handleEnchants(itemStack) || handlePotions(itemStack);
-        if(dirty) item.setItemStack(itemStack);
-        return dirty;
+        return handleItemStack(item.getItemStack());
     }
 
     private boolean handleEnchants(final ItemStack itemStack) {

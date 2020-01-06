@@ -1,4 +1,5 @@
 ---
+debug: false
 # Should the lists act as a whitelist, or a blacklist?
 whitelistMode: true
 # minecraft-namespace key names
