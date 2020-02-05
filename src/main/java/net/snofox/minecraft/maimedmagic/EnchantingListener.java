@@ -1,7 +1,7 @@
 package net.snofox.minecraft.maimedmagic;
 
 import com.google.common.collect.ImmutableSet;
-import net.snofox.minecraft.snolib.MathExtras;
+import net.snofox.minecraft.snolib.numbers.MathExtras;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.event.EventHandler;

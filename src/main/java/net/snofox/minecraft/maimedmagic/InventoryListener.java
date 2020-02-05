@@ -1,7 +1,7 @@
 package net.snofox.minecraft.maimedmagic;
 
-import net.snofox.minecraft.snolib.RandomUtil;
 import net.snofox.minecraft.snolib.language.ItemNames;
+import net.snofox.minecraft.snolib.numbers.RandomUtil;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -65,8 +65,8 @@ public class InventoryListener implements Listener {
 
     private void handleInventory(final Inventory inventory) {
         final ItemStack[] storageContents = inventory.getStorageContents();
-        for(int i = 0; i < storageContents.length; ++i) {
-            handleItemStack(storageContents[i]);
+        for(final ItemStack storageContent : storageContents) {
+            handleItemStack(storageContent);
         }
     }
 
